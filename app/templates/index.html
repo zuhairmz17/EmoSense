@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="text-center py-5">
+  <h1 class="display-4 fw-bold emo-gradient-text">EmoSense</h1>
+  <p class="lead mb-4">Understand Your Emotions. Empower Your Life.</p>
+  <a class="btn btn-emo btn-lg me-2" href="{{ url_for('auth.register') }}">Get Started</a>
+  <a class="btn btn-emo-outline btn-lg" href="{{ url_for('auth.login') }}">Login</a>
+</section>
+{% endblock %}

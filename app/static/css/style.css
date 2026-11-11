@@ -1,0 +1,57 @@
+:root {
+  --emo-primary: #7c5cdb;
+  --emo-primary-dark: #5f3fc4;
+  --emo-lavender: #f1ecff;
+  --emo-blue: #e8f1ff;
+  --emo-text: #2d2a45;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--emo-text);
+  background: linear-gradient(180deg, var(--emo-lavender) 0%, #ffffff 45%, var(--emo-blue) 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }
+
+.emo-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(8px); box-shadow: 0 2px 12px rgba(124, 92, 219, 0.08); }
+.emo-brand { font-weight: 700; color: var(--emo-primary) !important; }
+
+.emo-card { background: #fff; border-radius: 18px; box-shadow: 0 8px 28px rgba(124, 92, 219, 0.12); transition: transform .2s ease, box-shadow .2s ease; }
+.emo-card.hoverable:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(124, 92, 219, 0.18); }
+
+.btn-emo { background: var(--emo-primary); color: #fff; border: none; border-radius: 12px; padding: .55rem 1.3rem; font-weight: 600; }
+.btn-emo:hover { background: var(--emo-primary-dark); color: #fff; }
+.btn-emo-outline { border: 2px solid var(--emo-primary); color: var(--emo-primary); border-radius: 12px; font-weight: 600; background: transparent; }
+.btn-emo-outline:hover { background: var(--emo-primary); color: #fff; }
+
+.emo-gradient-text { background: linear-gradient(90deg, #7c5cdb, #4c8dff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.emo-footer { color: #7b789a; }
+.form-control:focus { border-color: var(--emo-primary); box-shadow: 0 0 0 .2rem rgba(124, 92, 219, 0.2); }
+
+
+.choice-btn {
+  display: inline-block;
+  border: 2px solid #e3dcff;
+  border-radius: 14px;
+  background: #fff;
+  padding: .6rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all .15s ease;
+}
+.choice-btn:hover { border-color: var(--emo-primary); }
+.choice-btn-sm { padding: .4rem .9rem; min-width: 2.6rem; text-align: center; }
+.btn-check:checked + .choice-btn {
+  background: var(--emo-primary);
+  border-color: var(--emo-primary);
+  color: #fff;
+}
+.btn-check:focus-visible + .choice-btn { box-shadow: 0 0 0 .2rem rgba(124, 92, 219, 0.3); }
+.intensity-dots { color: var(--emo-primary); letter-spacing: 2px; }
+.note-text { white-space: pre-wrap; }
+.stat-number { font-size: 2rem; font-weight: 700; color: var(--emo-primary); }
+.quick-card { display: block; text-decoration: none; color: inherit; }
+.quick-card.disabled { opacity: .55; pointer-events: none; }

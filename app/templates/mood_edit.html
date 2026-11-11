@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Edit Mood Entry{% endblock %}
+{% block content %}
+<h2 class="mb-1">Edit mood entry</h2>
+<p class="text-muted">Originally logged {{ entry.created_at|localtime }}.</p>
+<div class="emo-card p-4">
+  {% include "_mood_form.html" %}
+  <a class="btn btn-emo-outline mt-3" href="{{ url_for('mood.tracker') }}">Cancel</a>
+</div>
+{% endblock %}

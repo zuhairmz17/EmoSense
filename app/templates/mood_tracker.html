@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Mood Tracker{% endblock %}
+{% block content %}
+<h2 class="mb-1">Mood Tracker</h2>
+<p class="text-muted">Log how you feel right now. Small, regular check-ins reveal patterns over time.</p>
+
+<div class="emo-card p-4 mb-4">
+  <h5 class="mb-3">New entry</h5>
+  {% include "_mood_form.html" %}
+</div>
+
+<h5 class="mb-3">Your entries</h5>
+{% if pagination.items %}
+  {% for e in pagination.items %}
+  <div class="emo-card p-3 mb-3">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+      <div>
+        <span class="fs-4">{{ MOOD_EMOJI.get(e.mood, '') }}</span>
+        <strong class="ms-1">{{ e.mood }}</strong>
+        <span class="ms-2 intensity-dots" title="Intensity {{ e.intensity }} of 5">{{ '●' * e.intensity }}{{ '○' * (5 - e.intensity) }}</span>
+        <div class="text-muted small">{{ e.created_at|localtime }}{% if e.updated_at and e.updated_at != e.created_at %} · edited{% endif %}</div>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-emo-outline btn-sm" href="{{ url_for('mood.edit', entry_id=e.id) }}">Edit</a>
+        <form method="post" action="{{ url_for('mood.delete', entry_id=e.id) }}"
+              onsubmit="return confirm('Delete this entry? This cannot be undone.');">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+    {% if e.note %}<p class="mb-0 mt-2 note-text">{{ e.note }}</p>{% endif %}
+  </div>
+  {% endfor %}
+
+  <div class="d-flex justify-content-between">
+    {% if pagination.has_prev %}
+      <a class="btn btn-emo-outline btn-sm" href="{{ url_for('mood.tracker', page=pagination.prev_num) }}">← Newer</a>
+    {% else %}<span></span>{% endif %}
+    {% if pagination.has_next %}
+      <a class="btn btn-emo-outline btn-sm" href="{{ url_for('mood.tracker', page=pagination.next_num) }}">Older →</a>
+    {% endif %}
+  </div>
+{% else %}
+  <div class="emo-card p-4 text-center text-muted">No entries yet. Save your first mood above.</div>
+{% endif %}
+{% endblock %}

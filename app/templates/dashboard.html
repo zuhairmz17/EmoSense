@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Welcome, {{ current_user.name }} 👋</h2>
+<p class="text-muted">Here is a quick look at your emotional wellness journey.</p>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="emo-card p-4 h-100">
+      <div class="text-muted">Total mood entries</div>
+      <div class="stat-number">{{ mood_count }}</div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="emo-card p-4 h-100">
+      <div class="text-muted">Latest EI score</div>
+      <div class="stat-number">—</div>
+      <small class="text-muted">Available once the assessment is added</small>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="emo-card p-4 h-100">
+      <div class="text-muted">Assessments completed</div>
+      <div class="stat-number">0</div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <a class="quick-card emo-card hoverable p-4 h-100" href="{{ url_for('mood.tracker') }}">
+      <div class="fs-2">😊</div><h5 class="mb-1">Mood Tracker</h5>
+      <small class="text-muted">Log and review how you feel.</small>
+    </a>
+  </div>
+  <div class="col-md-4">
+    <div class="quick-card emo-card p-4 h-100 disabled">
+      <div class="fs-2">📝</div><h5 class="mb-1">EI Assessment</h5>
+      <small class="text-muted">Coming in the next stage.</small>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="quick-card emo-card p-4 h-100 disabled">
+      <div class="fs-2">📊</div><h5 class="mb-1">Analytics</h5>
+      <small class="text-muted">Coming soon.</small>
+    </div>
+  </div>
+</div>
+
+<div class="emo-card p-4">
+  <h5 class="mb-3">Recent mood activity</h5>
+  {% if recent %}
+    <ul class="list-unstyled mb-0">
+      {% for e in recent %}
+      <li class="py-2 border-bottom">
+        {{ MOOD_EMOJI.get(e.mood, '') }} <strong>{{ e.mood }}</strong>
+        <span class="intensity-dots ms-1">{{ '●' * e.intensity }}{{ '○' * (5 - e.intensity) }}</span>
+        <span class="text-muted small ms-2">{{ e.created_at|localtime }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted mb-0">No entries yet. <a href="{{ url_for('mood.tracker') }}">Log your first mood</a>.</p>
+  {% endif %}
+</div>
+{% endblock %}
